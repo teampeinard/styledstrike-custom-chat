@@ -86,12 +86,15 @@ function Tags:AddMessageWithCustomTags( ply, text, isTeam, isDead, prefixText, c
         end
     end
 
-	if prefixText then
-		Insert( team.GetColor( ply:Team() ) )
-		Insert( prefixText )
-	else
-		Insert( ply )
+	if DarkRP and prefixText then
+		local sPrefix = string.match( prefixText, "^%((.+)%)" )
+		if sPrefix == "OOC" then
+			Insert( team.GetColor( ply:Team() ) )
+			Insert( "(" .. sPrefix .. ") " )
+		end
 	end
+
+	Insert( ply )
     Insert( messageColor )
     Insert( ": " .. text )
 
