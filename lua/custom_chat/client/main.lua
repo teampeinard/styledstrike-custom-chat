@@ -706,7 +706,8 @@ hook.Add( "InitPostEntity", "CustomChat.PostInit", function()
         CustomChat.USE_TAGS = true
     end
 
-    hook.Add( "OnPlayerChat", "CustomChat.PreprocessPlayerChat", function( ply, text, isTeam, isDead )
+	--prefixText, col1 and col2 are for DarkRP integration. 👌
+    hook.Add( "OnPlayerChat", "CustomChat.PreprocessPlayerChat", function( ply, text, isTeam, isDead, prefixText, col1, col2 )
         -- Make sure the `lastReceivedMessage` table exists when
         -- the `OnPlayerChat` hook runs due to the "say" console command.
         CustomChat.lastReceivedMessage = CustomChat.lastReceivedMessage or {
@@ -716,7 +717,7 @@ hook.Add( "InitPostEntity", "CustomChat.PostInit", function()
         }
 
         if CustomChat.USE_TAGS then
-            return CustomChat.Tags:AddMessageWithCustomTags( ply, text, isTeam, isDead )
+            return CustomChat.Tags:AddMessageWithCustomTags( ply, text, isTeam, isDead, prefixText, col1, col2 )
         end
     end, HOOK_LOW )
 end )

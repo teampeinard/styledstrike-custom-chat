@@ -29,7 +29,7 @@ function Tags:GetNameColor( ply )
     return GAMEMODE:GetTeamColor( ply )
 end
 
-function Tags:AddMessageWithCustomTags( ply, text, isTeam, isDead )
+function Tags:AddMessageWithCustomTags( ply, text, isTeam, isDead, prefixText, col1, col2 )
     if not IsValid( ply ) or not ply:IsPlayer() then return end
 
     local parts = Tags:GetParts( ply )
@@ -86,7 +86,12 @@ function Tags:AddMessageWithCustomTags( ply, text, isTeam, isDead )
         end
     end
 
-    Insert( ply )
+	if prefixText then
+		Insert( team.GetColor( ply:Team() ) )
+		Insert( prefixText )
+	else
+		Insert( ply )
+	end
     Insert( messageColor )
     Insert( ": " .. text )
 
